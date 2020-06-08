@@ -9,12 +9,13 @@ import java.util.Scanner;
 
 public class TransactionService {
 
-    public void deposit(BankAccount accTo, double money) { // testing
+    public void deposit(BankAccount accTo, double money) { // Unit testing
         accTo.setBalance(money);
         System.out.println(money + "€ has been transferred to your " + accTo.getBankName() + " account");
     }
 
-    public void addPayment() { // testing
+    public void addPayment() { // Unit testing for separate parts in separate methods
+        //double amount, Category cat, int month, int year
         Scanner input = new Scanner(System.in);
 
         boolean isContinue = true;

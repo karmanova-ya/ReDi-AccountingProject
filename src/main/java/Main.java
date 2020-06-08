@@ -47,11 +47,6 @@ public class Main {
 
 
 
-
-
-
-
-
 //        bank.addPayment(new Expense(1, 500, Category.SALARY, 4, 2019));
 //        bank.addPayment(new Expense(2, -10.5, Category.CAFE, 4, 2019));
 //        bank.addPayment(new Expense(3, -4.5, Category.TRANSPORT, 4, 2019));

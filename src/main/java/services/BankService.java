@@ -1,3 +1,11 @@
+// its for Yana
+
+package services;
+
+import model.PaymentCategory;
+import model.Payment;
+import utils.DateUtils;
+
 import java.util.*;
 
 public class BankService {
@@ -38,18 +46,18 @@ public class BankService {
 
     //Show the user their spending grouped by type, alphabetically ordered by the type name
     public void alphGrouping() {
-        TreeMap<Category, Double> alphabetSort = new TreeMap();
+        TreeMap<PaymentCategory, Double> alphabetSort = new TreeMap();
         for (Payment payment : payments) {
-            Category category = payment.getCategory();
-            if (alphabetSort.containsKey(category)) {
-                double sum = alphabetSort.get(category) + payment.getAmount();
-                alphabetSort.put(category, sum);
+            PaymentCategory paymentCategory = payment.getPaymentCategory();
+            if (alphabetSort.containsKey(paymentCategory)) {
+                double sum = alphabetSort.get(paymentCategory) + payment.getAmount();
+                alphabetSort.put(paymentCategory, sum);
             } else {
-                alphabetSort.put(category, payment.getAmount());
+                alphabetSort.put(paymentCategory, payment.getAmount());
             }
         }
         System.out.println("How do you spend your money: ");
-        for (Map.Entry<Category, Double> entry : alphabetSort.entrySet()) {
+        for (Map.Entry<PaymentCategory, Double> entry : alphabetSort.entrySet()) {
             System.out.println(entry);
         }
     }

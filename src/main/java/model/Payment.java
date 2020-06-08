@@ -1,36 +1,29 @@
+package model;
+
+import utils.DateUtils;
+
 public class Payment {
-    private int id;
     private double amount;
-    private Category category;
+    private PaymentCategory paymentCategory;
     private Integer month;
     private int year;
 
     @Override
     public String toString() {
         return "Payment{" +
-                "id=" + id +
                 ", amount=" + amount +
-                ", category=" + category +
+                ", category=" + paymentCategory +
                 ", month=" + DateUtils.month(month) +
                 ", year=" + year +
                 '}';
     }
 
-    public Payment(int id, double amount, Category category, int month, int year) {
-        this.id = id;
-        this.amount = amount;
-        this.category = category;
-        this.month = month;
-        this.year = year;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public Payment(double amount, int month, int year) {
+//        this.amount = amount;
+//        this.category = category;
+//        this.month = month;
+//        this.year = year;
+//    }
 
     public double getAmount() {
         return amount;
@@ -40,12 +33,12 @@ public class Payment {
         this.amount = amount;
     }
 
-    public Category getCategory() {
-        return category;
+    public PaymentCategory getPaymentCategory() {
+        return paymentCategory;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setPaymentCategory(PaymentCategory paymentCategory) {
+        this.paymentCategory = paymentCategory;
     }
 
     public Integer getMonth() {

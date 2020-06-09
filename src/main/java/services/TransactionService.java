@@ -3,7 +3,9 @@ package services;
 import model.BankAccount;
 import model.IncomeCategory;
 import model.Payment;
+import model.Income;
 import model.PaymentCategory;
+import utils.DateUtils;
 
 import java.util.Scanner;
 
@@ -14,7 +16,7 @@ public class TransactionService {
         System.out.println(money + "€ has been transferred to your " + accTo.getBankName() + " account");
     }
 
-    public PaymentCategory addPaymentCategory() {
+    public PaymentCategory addPayCategory() {
         Scanner input = new Scanner(System.in);
         System.out.println("Select your spending category: ");
         System.out.println("ENTERTAINMENT (e), CAFE(c), TRANSPORT(t), GROCERY(g)");
@@ -50,26 +52,61 @@ public class TransactionService {
         return payCat;
     }
 
+    public String addPaymentDate(Payment payment) {   // Unit testing for separate parts in separate methods
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter month -> ");
+        int month = input.nextInt();
+        boolean validMonth = false;
+        while (!validMonth) {
+            if (month > 0 && month <= 12) {
+                payment.setMonth(month);
+                validMonth = true;
+            } else {
+                System.out.println("Invalid date. Please check your input\n");
+                System.out.print("Enter month -> ");
+                month = input.nextInt();
+            }
+        }
+        System.out.print("Enter year -> ");
+        int year = input.nextInt();
+        boolean validYear = false;
+        while (!validYear) {
+            if (year == 2019 || year == 2020) {
+                payment.setYear(year);
+                validYear = true;
+            } else {
+                System.out.println("Invalid date. Please check your input\n");
+                System.out.print("Enter year -> ");
+                year = input.nextInt();
+            }
+        }
+            return DateUtils.month(month) + " " + year;
+    }
+
     //double amount, Category cat, int month, int year
     public void addPayment() {   // Unit testing for separate parts in separate methods
         Scanner input = new Scanner(System.in);
         Payment payment = new Payment();
         System.out.print("Enter amount -> ");
         double amount = input.nextDouble();
-        payment.setPaymentCategory(addPaymentCategory());
-        System.out.print("Enter month -> ");
-        int month = input.nextInt();
-        System.out.print("Enter year -> ");
-        int year = input.nextInt();
+        payment.setPaymentCategory(addPayCategory());
         payment.setAmount(-amount);
-        payment.setMonth(month);
-        payment.setYear(year);
-        System.out.println("You add a payment: " + payment.getPaymentCategory() + " = " + payment.getAmount() + "€ - " + payment.getMonth() + "." + payment.getYear());
+        String date = addPaymentDate(payment);
+        System.out.println("You added a payment: " + payment.getPaymentCategory() + " --> " + payment.getAmount() * (-1) + "€ --> " + date);
     }
 
-
-    public void addIncome() {   // testing
-    }
+//
+//    public void addIncome() {   // testing
+//        Scanner input = new Scanner(System.in);
+//        Income income = new Income();
+//        System.out.print("Enter amount -> ");
+//        double amount = input.nextDouble();
+//        income.setIncomeCategory(addPayCategory());
+//        income.setAmount(amount);
+//        String date = addPaymentDate(payment);
+//        System.out.println("You added a payment: " + payment.getPaymentCategory() + " --> " + payment.getAmount() + "€ --> " + date);
+//
+//    }
 
 
 }

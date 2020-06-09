@@ -39,7 +39,6 @@ public class Main {
             db.addIncome();
         }else{
             System.out.println("Please clarify your answer\n");
-
         }
 
 

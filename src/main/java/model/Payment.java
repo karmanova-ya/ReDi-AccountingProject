@@ -2,35 +2,18 @@ package model;
 
 import utils.DateUtils;
 
-public class Payment {
-    private double amount;
+public class Payment extends Transaction{
+
     private PaymentCategory paymentCategory;
-    private Integer month;
-    private int year;
 
     @Override
     public String toString() {
         return "Payment{" +
-                ", amount=" + amount +
+                ", amount=" + getAmount() +
                 ", category=" + paymentCategory +
-                ", month=" + DateUtils.month(month) +
-                ", year=" + year +
+                ", month=" + DateUtils.month(getMonth()) +
+                ", year=" + getYear() +
                 '}';
-    }
-
-//    public Payment(double amount, int month, int year) {
-//        this.amount = amount;
-//        this.category = category;
-//        this.month = month;
-//        this.year = year;
-//    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 
     public PaymentCategory getPaymentCategory() {
@@ -39,21 +22,5 @@ public class Payment {
 
     public void setPaymentCategory(PaymentCategory paymentCategory) {
         this.paymentCategory = paymentCategory;
-    }
-
-    public Integer getMonth() {
-        return month;
-    }
-
-    public void setMonth(Integer month) {
-        this.month = month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
     }
 }

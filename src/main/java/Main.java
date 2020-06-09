@@ -2,6 +2,9 @@ import model.BankAccount;
 import model.IncomeCategory;
 import model.PaymentCategory;
 import model.Payment;
+import repository.IncomeStorage;
+import repository.PaymentStorage;
+import services.StaticticService;
 import services.TransactionService;
 import java.util.Scanner;
 
@@ -15,52 +18,40 @@ import java.util.Scanner;
 //have a simple user management system that allows different users to register and log in the system, and store their data in different files
 //use a real db!
 public class Main {
+        //create Menu method with selection
+
     public static void main(String[] args) {
+
+        PaymentStorage paymentStorage = new PaymentStorage();
+        IncomeStorage incomeStorage = new IncomeStorage();
+
+        TransactionService transactionService = new TransactionService(paymentStorage, incomeStorage);
+        StaticticService staticticService = new StaticticService(paymentStorage, incomeStorage);
+
+        //-----------------------------------------------
+
         Scanner input = new Scanner(System.in);
+
+
         System.out.println("Let create your bank account!");
         System.out.print("Input bank name - ");
 
         String bankName = input.nextLine();
-//        String secondBName = input.nextLine();
         BankAccount deutscheBank = new BankAccount(bankName);
-//        BankAccount n26 = new BankAccount(secondBName);
 
         System.out.println("Do you want add some money?");
         double deposit = input.nextDouble();
 
-        TransactionService db = new TransactionService();
-        db.deposit(deutscheBank, deposit);
+        transactionService.deposit(deutscheBank, deposit);
 
         System.out.println("Do you want to add payment(p) or income(i)?");
         String typeOfPayment = input.next();
         if (typeOfPayment.equals("p")){
-            db.addPayment();
+            transactionService.addPayment();
         }else if(typeOfPayment.equals("i")){
-            db.addIncome();
+            transactionService.addIncome();
         }else{
             System.out.println("Please clarify your answer\n");
         }
-
-
-
-
-
-
-//        bank.addPayment(new Expense(1, 500, Category.SALARY, 4, 2019));
-//        bank.addPayment(new Expense(2, -10.5, Category.CAFE, 4, 2019));
-//        bank.addPayment(new Expense(3, -4.5, Category.TRANSPORT, 4, 2019));
-//        bank.addPayment(new Expense(4, 33, Category.DIVIDEND, 5, 2019));
-//        bank.addPayment(new Expense(5, 500, Category.SALARY, 5, 2019));
-//        bank.addPayment(new Expense(6, -5, Category.CAFE, 5, 2019));
-//        bank.addPayment(new Expense(7, 20, Category.DIVIDEND, 4, 2020));
-//        bank.addPayment(new Expense(8, 3, Category.DIVIDEND, 4, 2020));
-//
-//        System.out.println(bank.biggestPayment());
-//        System.out.println(bank.totalIncome());
-//        bank.alphGrouping();
-//        bank.selectStatistics();
-//        bank.biggestIncome();
-//        bank.totalSpending();
-//        bank.totalSpendingByMonth();
     }
 }

@@ -2,26 +2,24 @@ package model;
 
 import utils.DateUtils;
 
-public class Income {
-        private double amount;
+public class Income extends Transaction{
         private IncomeCategory inCategory;
-        private Integer month;
-        private int year;
 
         @Override
         public String toString() {
             return "Income {" +
-                    ", amount=" + amount +
+                    ", amount=" + getAmount() +
                     ", category=" + inCategory +
-                    ", month=" + DateUtils.month(month) +
-                    ", year=" + year +
+                    ", month=" + DateUtils.month(getMonth()) +
+                    ", year=" + getYear() +
                     '}';
         }
 
-//        public Income(int id, double amount, IncomeCategory incomeCategory, int month, int year) {
-//            this.amount = amount;
-//            this.incomeCategory = inCategory;
-//            this.month = month;
-//            this.year = year;
-//        }
+    public IncomeCategory getInCategory() {
+        return inCategory;
     }
+
+    public void setInCategory(IncomeCategory inCategory) {
+        this.inCategory = inCategory;
+    }
+}

@@ -8,26 +8,6 @@ public class BankAccount {
         this.bankName = bankName;
     }
 
-    void withdraw(double money) {
-        System.out.print(" -" + money);
-        if (money <= balance) {
-            balance -= money;
-            System.out.println(" = " + balance);
-        } else {
-            System.out.print(" You don't have enough money on your balance :(");
-            System.out.println(" = " + balance);
-        }
-    }
-
-    void transfer(BankAccount accTo, double tranTo) {
-        withdraw(tranTo);
-
-//        accTo.deposit(tranTo);
-        System.out.println("Transfer complete!");
-        System.out.println(this.bankName + " - " + this.getBalance());
-        System.out.println(accTo.bankName + " - " + accTo.getBalance());
-    }
-
     public String getBankName() {
         return bankName;
     }

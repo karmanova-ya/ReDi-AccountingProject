@@ -3,7 +3,9 @@ import repository.IncomeStorage;
 import repository.PaymentStorage;
 import services.StaticticService;
 import services.TransactionService;
+
 import java.io.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 //add expenses and earnings through the console
@@ -67,11 +69,19 @@ public class Main {
             bankAccount = createBankAcc();
         }
 
-        System.out.println("Do you want add some money?");
-        double deposit = input.nextDouble();
-        transactionService.deposit(bankAccount, deposit);
+        System.out.println("Do you want add some money? (y/n)");
+        String answer = input.next();
+        if (answer.equals("y")) {
+            try {
+                double deposit = input.nextDouble();
+                transactionService.deposit(bankAccount, deposit);
+            } catch (InputMismatchException e) {
+                System.out.println("This does not really make sense, sorry. Please add an amount instead of text.");
+            }
+        } else {
+            System.out.println("Do you want to add payment(p) or income(i)?");
+        }
 
-        System.out.println("Do you want to add payment(p) or income(i)?");
         String typeOfPayment = input.next();
         if (typeOfPayment.equals("p")) {
             transactionService.addPayment();

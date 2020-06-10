@@ -142,6 +142,8 @@ public class TransactionService {
         payment.setPaymentCategory(addPayCategory());
         payment.setAmount(-amount);
         String date = addPaymentDate(payment);
+        PaymentStorage paymentStorage = new PaymentStorage();
+        paymentStorage.addPayment(payment);
         System.out.println("You added a transaction: " + payment.getPaymentCategory() + " --> " + payment.getAmount() * (-1) + "€ --> " + date);
     }
 
@@ -154,6 +156,8 @@ public class TransactionService {
         income.setInCategory(addInCategory());
         income.setAmount(amount);
         String date = addPaymentDate(income);
+        IncomeStorage incomeStorage = new IncomeStorage();
+        incomeStorage.addIncome(income);
         System.out.println("You added a transaction: " + income.getInCategory() + " --> " + income.getAmount() + "€ --> " + date);
     }
 

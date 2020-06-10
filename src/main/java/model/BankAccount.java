@@ -1,6 +1,9 @@
 package model;
-// its for Yana
-public class BankAccount {
+
+import java.io.Serializable;
+
+public class BankAccount implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String bankName;
     private double balance = 0;
 

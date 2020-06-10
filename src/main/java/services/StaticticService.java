@@ -19,6 +19,47 @@ public class StaticticService {
         this.incomeStorage = incomeStorage;
     }
 
+    //Give the user opportunity to choose what statistics they want to see:
+    public void selectStatistics() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter what statistics you want to see:");
+        System.out.println(
+                "1 - My biggest payment\n" +
+                        "2 - My total income\n" +
+                        "3 - How do I spend my money\n" +
+                        "4 - Statistics for 1 year\n" +
+                        "0 - exit\n");
+        boolean isContinue = true;
+        while (isContinue) {
+
+            System.out.print("User's input> ");
+            int cat = input.nextInt();
+
+            switch (cat) {
+                case 1:
+                    biggestPayment();
+                    break;
+                case 2:
+                    totalIncome();
+                    break;
+                case 3:
+                    paymentAlphGrouping();
+                    break;
+                case 4:
+                    System.out.println("Enter a year:");
+                    cat = input.nextInt();
+                    totalSpendingByYear(cat);
+                    break;
+                case 0:
+                    System.out.println("See you next time :)\n");
+                    isContinue = false;
+                    break;
+                default:
+                    System.out.println("Please clarify your answer\n");
+            }
+        }
+    }
+
     //Show the user their the most expensive payment
     public Payment biggestPayment() {
         Payment big = null;
@@ -63,46 +104,6 @@ public class StaticticService {
         }
     }
 
-    //Give the user opportunity to choose what statistics they want to see:
-    public void selectStatistics() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter what statistics you want to see:");
-        System.out.println(
-                "1 - My biggest payment\n" +
-                        "2 - My total income\n" +
-                        "3 - How do I spend my money\n" +
-                        "4 - Statistics for 1 year\n" +
-                        "0 - exit\n");
-        boolean isContinue = true;
-        while (isContinue) {
-
-            System.out.print("User's input> ");
-            int cat = input.nextInt();
-
-            switch (cat) {
-                case 1:
-                    biggestPayment();
-                    break;
-                case 2:
-                    totalIncome();
-                    break;
-                case 3:
-                    paymentAlphGrouping();
-                    break;
-                case 4:
-                    System.out.println("Enter a year:");
-                    cat = input.nextInt();
-                    totalSpendingByYear(cat);
-                    break;
-                case 0:
-                    System.out.println("See you next time :)\n");
-                    isContinue = false;
-                    break;
-                default:
-                    System.out.println("Please clarify your answer\n");
-            }
-        }
-    }
 
     //Show the user their biggest income
     public Income biggestIncome() {

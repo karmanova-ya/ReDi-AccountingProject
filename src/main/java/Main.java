@@ -71,17 +71,21 @@ public class Main {
 
         System.out.println("Do you want add some money? (y/n)");
         String answer = input.next();
+        double deposit = 0;
         if (answer.equals("y")) {
             try {
-                double deposit = input.nextDouble();
+                System.out.println("Input here -->");
+                deposit = input.nextDouble();
                 transactionService.deposit(bankAccount, deposit);
             } catch (InputMismatchException e) {
                 System.out.println("This does not really make sense, sorry. Please add an amount instead of text.");
+                System.out.println("Input here -->");
+                deposit = input.nextDouble();
+                transactionService.deposit(bankAccount, deposit);
             }
-        } else {
-            System.out.println("Do you want to add payment(p) or income(i)?");
         }
 
+        System.out.println("Do you want to add payment(p) or income(i)?");
         String typeOfPayment = input.next();
         if (typeOfPayment.equals("p")) {
             transactionService.addPayment();
@@ -89,6 +93,15 @@ public class Main {
             transactionService.addIncome();
         } else {
             System.out.println("Please clarify your answer\n");
+        }
+
+        System.out.println("Do you want to see transaction statistic? (y/n)");
+        String userSelection = input.next();
+        if (userSelection.equals("y")) {
+            staticticService.selectStatistics();
+        } else {
+            System.out.println("Please clarify your answer\n");
+            staticticService.selectStatistics();
         }
     }
 }

@@ -24,10 +24,14 @@ public class StaticticService {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter what statistics you want to see:");
         System.out.println(
+//                  totalSpendingByMonth totalSpending biggestPayment biggestIncome totalIncome paymentAlphGrouping totalSpendingByYear
                 "1 - My biggest payment\n" +
-                        "2 - My total income\n" +
-                        "3 - How do I spend my money\n" +
-                        "4 - Statistics for 1 year\n" +
+                        "2 - My biggest income\n" +
+                        "3 - My total spending\n" +
+                        "4 - My total income\n" +
+                        "5 - Spendings sorted alphabetically\n" +
+                        "6 - Statistics for 1 month\n" +
+                        "7 - Statistics for 1 year\n" +
                         "0 - exit\n");
         boolean isContinue = true;
         while (isContinue) {
@@ -40,12 +44,23 @@ public class StaticticService {
                     biggestPayment();
                     break;
                 case 2:
-                    totalIncome();
+                    biggestIncome();
                     break;
                 case 3:
-                    paymentAlphGrouping();
+                    totalSpending();
                     break;
                 case 4:
+                    totalIncome();
+                    break;
+                case 5:
+                    paymentAlphGrouping();
+                    break;
+                case 6:
+                    System.out.println("Enter a month:");
+                    cat = input.nextInt();
+                    totalSpendingByMonth(cat);
+                    break;
+                case 7:
                     System.out.println("Enter a year:");
                     cat = input.nextInt();
                     totalSpendingByYear(cat);
@@ -72,6 +87,32 @@ public class StaticticService {
         }
         System.out.println("The biggest payment is: " + big);
         return big;
+    }
+
+    //Show the user their biggest income
+    public Income biggestIncome() {
+        Income big = null;
+        for (Income income : incomeStorage.getIncomes()) {
+            if (income.getAmount() > 0) {
+                if (big == null) {
+                    big = income;
+                } else if (big.getAmount() < income.getAmount()) {
+                    big = income;
+                }
+            }
+        }
+        System.out.println("The biggest income is: " + big);
+        return big;
+    }
+
+    //Show the user their total spending
+    public double totalSpending() {
+        double sum = 0;
+        for (Payment payment : paymentStorage.getPayments()) {
+            sum += payment.getAmount();
+        }
+        System.out.println("You spent in total: " + sum);
+        return sum;
     }
 
     //Show the user their total income
@@ -105,39 +146,13 @@ public class StaticticService {
     }
 
 
-    //Show the user their biggest income
-    public Income biggestIncome() {
-        Income big = null;
-        for (Income income : incomeStorage.getIncomes()) {
-            if (income.getAmount() > 0) {
-                if (big == null) {
-                    big = income;
-                } else if (big.getAmount() < income.getAmount()) {
-                    big = income;
-                }
-            }
-        }
-        System.out.println("The biggest income is: " + big);
-        return big;
-    }
-
-    //Show the user their total spending
-    public double totalSpending() {
-        double sum = 0;
-        for (Payment payment : paymentStorage.getPayments()) {
-            sum += payment.getAmount();
-        }
-        System.out.println("You spent in total: " + sum);
-        return sum;
-    }
-
     //Show spendings & earnings grouped by month during this year, chronologically ordered.
-    public void totalSpendingByMonth() {
+    public void totalSpendingByMonth(int month) {
         HashMap<Integer, Double> spendings = new HashMap();
         HashMap<Integer, Double> earnings = new HashMap();
 
         for (Payment payment : paymentStorage.getPayments()) {
-            Integer month = payment.getMonth();
+            month = payment.getMonth();
             Date key = new GregorianCalendar(payment.getYear(), payment.getMonth() - 1, 0).getTime();
             if (spendings.containsKey(month)) {
                 Double currentSum = spendings.get(month);
@@ -147,9 +162,8 @@ public class StaticticService {
                 spendings.put(month, payment.getAmount());
             }
         }
-
         for (Income income : incomeStorage.getIncomes()) {
-            Integer month = income.getMonth();
+            month = income.getMonth();
             Date key = new GregorianCalendar(income.getYear(), income.getMonth() - 1, 0).getTime();
             if (earnings.containsKey(month)) {
                 Double currentSum = earnings.get(month) + income.getAmount();
@@ -180,7 +194,6 @@ public class StaticticService {
                 }
             }
         }
-
         for (Income income : incomeStorage.getIncomes()) {
             Integer month = income.getMonth();
             Date key = new GregorianCalendar(year, income.getMonth() - 1, 0).getTime();

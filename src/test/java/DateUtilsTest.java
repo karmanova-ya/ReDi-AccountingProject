@@ -6,15 +6,6 @@ import utils.DateUtils;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DateUtilsTest {
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     public void DateUtilsTest() {
         DateUtilsTest t = new DateUtilsTest();

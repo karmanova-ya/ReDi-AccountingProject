@@ -23,14 +23,15 @@ public class TransactionService {
     }
 
     //account withdraw
-    void withdraw(BankAccount bAcc, double money) {
-        System.out.print(" -" + money);
+    public void withdraw(BankAccount bAcc, double money) {
         if (money <= bAcc.getBalance()) {
-            bAcc.setBalance(-money);
-            System.out.println(" = " + bAcc.getBalance());
+            double newBalance = bAcc.getBalance() - money;
+            bAcc.setBalance(newBalance);
+            System.out.println("You withdraw from account " + money + "€");
+            System.out.println("Current account status: " + bAcc.getBalance() + "€");
         } else {
             System.out.print(" You don't have enough money on your balance :(");
-            System.out.println(" = " + bAcc.getBalance());
+            System.out.println("Current account status: " + bAcc.getBalance() + "€");
         }
     }
 
